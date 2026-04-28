@@ -1,20 +1,19 @@
 #!/bin/bash
-#SBATCH --partition=gpu
+#SBATCH --partition=ai
 #SBATCH --nodes=1
-# #SBATCH --nodelist=gpu002
-#SBATCH --gpus=4
-#SBATCH --mem-per-gpu=40G
-#SBATCH --time=0:10:00
+#SBATCH --gpus=a100:1
+#SBATCH --mem-per-gpu=180G
+#SBATCH --cpus-per-gpu=32
+#SBATCH --time=24:00:00
+#SBATCH --reservation=chind_14
 
-module load cuda11.4/toolkit
-module load cuda11.4/blas
-module load cuda11.4/fft
-module load cuda11.4/nsight
-module load cuda11.4/profiler
+module load cuda/12.2
+uname -a
+nvidia-smi
 
 echo "Burn with doubles..."
-./gpu_burn -d 120
+./gpu_burn -d 1400
 
 echo "Burn with tensor cores..."
-./gpu_burn -tc 120
+./gpu_burn -tc 1400
 
