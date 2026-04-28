@@ -109,7 +109,12 @@ template <class T> class GPU_Test {
     GPU_Test(int dev, bool doubles, bool tensors, const char *kernelFile)
         : d_devNumber(dev), d_doubles(doubles), d_tensors(tensors), d_kernelFile(kernelFile){
         checkError(cuDeviceGet(&d_dev, d_devNumber));
+#if CUDA_VERSION >= 13000
+        CUctxCreateParams create_params = {};
+        checkError(cuCtxCreate(&d_ctx, &create_params, 0, d_dev));
+#else
         checkError(cuCtxCreate(&d_ctx, 0, d_dev));
+#endif
 
         bind();
 

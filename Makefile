@@ -20,9 +20,14 @@ override LDFLAGS  += -Wl,-rpath=${CUDAPATH}/lib
 override LDFLAGS  += -lcublas
 override LDFLAGS  += -lcudart
 
-COMPUTE      ?= 50
-CUDA_VERSION ?= 11.8.0
-IMAGE_DISTRO ?= ubi8
+#COMPUTE      ?= 50
+#CUDA_VERSION ?= 11.8.0
+#IMAGE_DISTRO ?= ubi8
+
+### NOTE gracehopper
+COMPUTE       ?= 90
+CUDA_VERSION  ?= 13.0.0
+IMAGE_DISTRO  ?= ubi8
 
 override NVCCFLAGS ?=
 override NVCCFLAGS += -I${CUDAPATH}/include
